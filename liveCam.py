@@ -13,7 +13,9 @@ cap = cv2.VideoCapture(0)
 detector = htm.handDetector(detectionCon=0.75)
 
 
-output = 0                  # empty final output variable
+ # empty final output variable
+answer = 0
+output = 0
 
 # capturing frames from camera until closing camera
 while(cap.isOpened()):
@@ -31,7 +33,7 @@ while(cap.isOpened()):
     # converting multi dimensional array  to 1d list
     cords = list(chain.from_iterable(lmlist))
     # now list contains 63 coloums, with 21 coloms indexes at every third position
-    # hencefilteing the list to only 42 items
+    # hence filteing the list to only 42 items
     if cords:
         for i in range(len(cords)):
             if i % 3 == 0:
@@ -58,12 +60,15 @@ while(cap.isOpened()):
 
         # storing prdiction list to anser variable
         output = answer[0]
-
     # we have got integer from model converting and rendering as cahrecter
+
+    # for char
     cv2.putText(img , chr(output + 65), (45 , 375) , cv2.FONT_HERSHEY_PLAIN , 5 ,( 25 ,217, 202    ), 10 ) # B G R
 
+    # for digit
+    #cv2.putText(img, str(answer), (45, 375), cv2.FONT_HERSHEY_PLAIN, 5, (25, 217, 202), 10)  # B G R
     # live video capture
-    cv2.imshow("image",img)
+    cv2.imshow("LIVE RECOGNATION (Press 'Q' to Quit)",img)
 
     # condition for stoping live cam
     if cv2.waitKey(1) == 113 :    # if pressed "Q" button on the keyboard

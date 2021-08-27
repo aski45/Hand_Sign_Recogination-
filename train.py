@@ -6,9 +6,7 @@ from itertools import chain
 detector = htm.handDetector(detectionCon=0.75)
 cam = cv2.VideoCapture(0)
 
-cv2.namedWindow("test")
-
-img_counter = 16
+img_counter = 0
 count = 0
 while True:
     count+=1
@@ -21,7 +19,7 @@ while True:
     k = cv2.waitKey(1)
     if k%256 == 27:
         # ESC pressed
-        print("Escape hit, closing...")
+        print("Trainig stoped")
         break
     elif k%256 == 32:
         # SPACE pressed
@@ -47,13 +45,13 @@ while True:
             # img_counter += 1
             if len(realdata) == 43 :
                 print(realdata)
-                with open('data.csv', 'a') as f_object:
+                with open('alpha.csv', 'a') as f_object:
                     writer_object = writer(f_object)
                     writer_object.writerow(realdata)
                     f_object.close()
             else :
                 continue
-    cv2.imshow("test", img)
+    cv2.imshow("TRANING (Press 'spacebar' to store cordinates) (Press 'esc' to stop storing)", img)
 cam.release()
 
 cv2.destroyAllWindows()
